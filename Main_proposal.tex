@@ -1,0 +1,121 @@
+\documentclass[12pt]{extarticle}
+%Some packages I commonly use.
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage[utf8]{inputenc}
+\usepackage[top=1 in,bottom=1in, left=1 in, right=1 in]{geometry}
+\usepackage{url}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{afterpage}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstset{ 
+	language=Matlab,                		% choose the language of the code
+	backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+
+%A bunch of definitions that make my life easier
+\newcommand{\matlab}{{\sc Matlab} }
+\newcommand{\cvec}[1]{{\mathbf #1}}
+\newcommand{\rvec}[1]{\vec{\mathbf #1}}
+\newcommand{\ihat}{\hat{\textbf{\i}}}
+\newcommand{\jhat}{\hat{\textbf{\j}}}
+\newcommand{\khat}{\hat{\textbf{k}}}
+\newcommand{\minor}{{\rm minor}}
+\newcommand{\trace}{{\rm trace}}
+\newcommand{\spn}{{\rm Span}}
+\newcommand{\rem}{{\rm rem}}
+\newcommand{\ran}{{\rm range}}
+\newcommand{\range}{{\rm range}}
+\newcommand{\mdiv}{{\rm div}}
+\newcommand{\proj}{{\rm proj}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\attn}[1]{\textbf{#1}}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{note}{Note}
+\newtheorem{exercise}{Exercise}
+\newcommand{\bproof}{\bigskip {\bf Proof. }}
+\newcommand{\eproof}{\hfill\qedsymbol}
+\newcommand{\Disp}{\displaystyle}
+\newcommand{\qe}{\hfill\(\bigtriangledown\)}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\setlength{\columnseprule}{1 pt}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Yusi Chen}
+\lhead{ECE 273\quad Project}
+
+
+\title{Robust PCA}
+\author{Yusi Chen; A53240542}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Reference:}
+\begin{itemize}
+    \item Candès, E. J., Li, X., Ma, Y., & Wright, J. (2011). Robust principal component analysis?. Journal of the ACM (JACM), 58(3), 1-37.
+    \item Yatsenko, D., Josić, K., Ecker, A. S., Froudarakis, E., Cotton, R. J., & Tolias, A. S. (2015). Improved estimation and interpretation of correlations in neural circuits. PLoS computational biology, 11(3).
+\end{itemize}
+
+\section{Problem setup:}
+The goal is to decompose a large data matrix M into a sparse matrix $L_0$ and a low-rank matrix $S_0$. The above decomposition can have many applications, such as map high dimensional to some low intrinsic dimensions. 
+\begin{equation}
+    M = S_0 + L_0
+\end{equation}
+This first paper proved that under some suitable assumption, it is possible to recover both the low-rank and the sparse components \textbf{exactly} by solving a very convenient convex program called Principal Component Pursuit:
+\begin{equation}
+    \text{min} \norm{L}_* + \lambda \norm{S}_1, \quad\text{subject to } L+S = M
+\end{equation}
+
+\begin{itemize}
+    \item What are the key theorems that can ensure the perfect recovery of two matrices? In the proof, what kind of assumptions (deterministic or probabilistic) are made?
+    \item How did the authors choose the only parameter $\lambda$? Why? What will happen if I perturb $\lambda$? 
+    \item Implement the algorithm provided in the paper and reproduce the numerical experiment of corrupted datasets. Change the experimental conditions such as some assumptions are violated. What will happen?  
+    \item In the first paper, the authors showed two real data examples where the \textbf{low-rank matrix} is of interest. Discuss whether these two examples fulfill the assumptions made before. 
+    \item In the second paper, the authors applied robust PCA to a covariance matrix to separate \textbf{the sparse matrix} of interest. Discuss whether the simulation studies reported in the second paper fulfill the above assumptions. What is the set of node connections (latent input setup) that falls into the robust PCA assumptions?
+\end{itemize}
+
+
+
+
+\end{document}
